@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title> Group Chat Messaging Workshop </title>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyDSM6_KcvYNP8LDpHu1G1l2AXK_BgwtWHg",
+	    authDomain: "groupchat-workshop.firebaseapp.com",
+	    databaseURL: "https://groupchat-workshop.firebaseio.com",
+	    projectId: "groupchat-workshop",
+	    storageBucket: "",
+	    messagingSenderId: "856863318719"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+  <script>
+    var database = firebase.database(); //Creates a connection to the firebase Database function
+    messageRef = database.ref("/messages"); //Ref stands for Reference
+    // Child Added will retrieve all the data from the messages reference when the page loads and when 
+    messageRef.on("child_added", function(snapshot){
+      console.log("Below is the data from child_added");
+      console.log(snapshot.val());
+    });
+  </script>
+</head>
+<body>
+	<div id="messages">
+		Test Message
+	</div>
+	<input type="text" id="userMessage">
+	<input type="button" onClick="sendMessage()" value="Send">
+</body>
+
+</html>
