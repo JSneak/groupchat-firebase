@@ -21,23 +21,26 @@
 
 	function sendMessage(){
 	  var data = document.getElementById("userMessage").value;
+	  var name = document.getElementById("userName").value
 	  var dataRef = database.ref('/messages').push();//Generates a new child location with a randomly generated id.
 	  dataRef.set({
-	    value: data
+	    value: data,
+	    name: name
 	  });
 	}
 	// Child Added will retrieve all the data from the messages reference when the page loads and when 
 	messageRef.on("child_added", function(snapshot){
 	  console.log("Below is the data from child_added");
 	  console.log(snapshot.val());
+	  document.getElementById('messages').innerHTML = document.getElementById('messages').innerHTML + snapshot.val().name + ": " + snapshot.val().value + "<br>"
 	});
 	</script>
 </head>
 <body>
 	<div id="messages">
-		Test Message
 	</div>
 	<input type="text" id="userMessage">
+	<input type="text" id="userName">
 	<input type="button" onClick="sendMessage()" value="Send">
 </body>
 
